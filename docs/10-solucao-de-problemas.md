@@ -20,7 +20,7 @@ docker compose logs --tail 100 homeassistant   # troque pelo serviço com proble
   Se não souber o que mudou: `git diff homeassistant/` e `git checkout -- arquivo` para desfazer.
 - IP errado: `hostname -I` na máquina.
 - Firewall ativo (`sudo ufw status`): libere com `sudo ufw allow 8123/tcp`
-  (e `1883/tcp`, `8080/tcp` se necessário).
+  (e `1883/tcp` se usar MQTT).
 
 ## Integração MQTT não conecta / "Connection refused"
 
@@ -33,18 +33,15 @@ docker compose logs --tail 100 homeassistant   # troque pelo serviço com proble
 
 Rode `./scripts/setup.sh` de novo (recria o arquivo com dono/permissão corretos).
 
-## Zigbee2MQTT não inicia
+## Aparelho Wi-Fi "Indisponível" no Home Assistant
 
-- `docker compose logs zigbee2mqtt`.
-- `no such file or directory` no dispositivo: caminho errado em `ZIGBEE_DEVICE`.
-  Confira `ls -l /dev/serial/by-id/`.
-- `Failed to start EZSP` / `HOST_FATAL_ERROR`: `adapter:` errado
-  (`ember` × `zstack`) em `zigbee2mqtt/data/configuration.yaml`, ou adaptador
-  com firmware antigo. Veja
-  <https://www.zigbee2mqtt.io/guide/installation/20_zigbee2mqtt-fails-to-start_crashes-runtime.html>.
-- Adaptador em uso por outro programa (ex.: a integração ZHA do HA). Só um pode usar.
-- Dispositivos Zigbee caem/perdem conexão: use extensor USB, afaste de
-  SSD/USB 3/roteador Wi-Fi, adicione aparelhos de tomada (repetidores).
+- A internet caiu? Aparelhos pela nuvem só respondem com internet.
+- O aparelho funciona no app do fabricante (ex.: Smart Life)? Se não, o problema
+  é no aparelho/Wi-Fi: desligue e ligue da tomada.
+- Funciona no app mas não no HA: *Configurações → Dispositivos e serviços →
+  (integração) → ⋮ → Recarregar*. Se aparecer "Reautenticar", faça login de novo.
+- Aparelho novo não aparece: recarregue a integração (item acima).
+- Veja mais em [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#quando-a-internet-cai).
 
 ## Dispositivo não é descoberto automaticamente
 
@@ -88,7 +85,7 @@ docker compose restart homeassistant
 ```bash
 ./scripts/backup.sh                  # guarde, por via das dúvidas
 docker compose down
-sudo rm -rf homeassistant/.storage homeassistant/*.db* mosquitto/data zigbee2mqtt/data
+sudo rm -rf homeassistant/.storage homeassistant/*.db* mosquitto/data
 ./scripts/setup.sh && docker compose up -d
 ```
-(Isso apaga usuários, integrações e pareamentos Zigbee.)
+(Isso apaga usuários e integrações; os aparelhos continuam no app do fabricante e é só adicionar a integração de novo.)

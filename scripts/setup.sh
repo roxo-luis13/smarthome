@@ -2,7 +2,7 @@
 # Prepara o repositório para rodar pela primeira vez (seguro rodar de novo).
 #   - confere o .env
 #   - cria pastas de dados
-#   - copia modelos (secrets, zigbee2mqtt)
+#   - copia modelos (secrets)
 #   - gera o arquivo de senha do MQTT a partir do .env
 # Uso: ./scripts/setup.sh
 # Documentação: docs/02-instalacao.md
@@ -27,16 +27,11 @@ if [ "$MQTT_PASSWORD" = "troque-esta-senha" ]; then
 fi
 
 echo ">> Criando pastas de dados..."
-mkdir -p mosquitto/data mosquitto/log zigbee2mqtt/data backups
+mkdir -p mosquitto/data mosquitto/log backups
 
 if [ ! -f homeassistant/secrets.yaml ]; then
   cp homeassistant/secrets.yaml.example homeassistant/secrets.yaml
   echo ">> Criado homeassistant/secrets.yaml"
-fi
-
-if [ ! -f zigbee2mqtt/data/configuration.yaml ]; then
-  cp zigbee2mqtt/configuration.example.yaml zigbee2mqtt/data/configuration.yaml
-  echo ">> Criado zigbee2mqtt/data/configuration.yaml"
 fi
 
 echo ">> Gerando senha do MQTT (mosquitto/config/passwd)..."
@@ -54,5 +49,4 @@ docker run --rm \
 echo
 echo "Setup concluído. Próximos passos:"
 echo "  docker compose up -d"
-echo "(Zigbee só sobe se COMPOSE_PROFILES=zigbee no .env)"
 echo "Depois abra http://<IP-desta-máquina>:8123"

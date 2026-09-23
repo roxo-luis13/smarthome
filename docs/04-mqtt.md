@@ -1,7 +1,11 @@
 # 04 — MQTT (Mosquitto)
 
+> **Nesta casa o MQTT é opcional**: os aparelhos atuais são Wi-Fi pela nuvem
+> e não o usam. O Mosquitto fica rodando (gasta quase nada) para o caso de
+> comprar aparelhos locais como Shelly, Tasmota ou ESPHome.
+
 MQTT é um protocolo de mensagens do tipo "publica/assina": um dispositivo
-publica `zigbee2mqtt/sensor_sala {"temperature": 24}` e quem assinou esse
+publica `sala/sensor {"temperature": 24}` e quem assinou esse
 *tópico* recebe. O **Mosquitto** é o servidor (broker) que distribui as mensagens.
 
 ## Como está configurado
@@ -19,8 +23,8 @@ publica `zigbee2mqtt/sensor_sala {"temperature": 24}` e quem assinou esse
    - **Broker**: `localhost` (o HA roda na rede do host e o Mosquitto publica a porta 1883 nele)
    - **Porta**: `1883`
    - **Usuário** / **Senha**: os do `.env`
-3. Enviar. Pronto — dispositivos que se anunciam via MQTT (Zigbee2MQTT,
-   Tasmota, ESPHome, Shelly) passam a aparecer sozinhos.
+3. Enviar. Pronto — dispositivos que se anunciam via MQTT (Tasmota,
+   ESPHome, Shelly) passam a aparecer sozinhos.
 
 ## Testar
 
@@ -46,7 +50,6 @@ publicar/escutar tópicos pela interface.
 2. `./scripts/setup.sh` (regera o `passwd`).
 3. `docker compose restart mosquitto`
 4. Atualize a senha na integração MQTT do HA (*MQTT → ⋮ → Reconfigurar*).
-5. Se usa Zigbee: `docker compose up -d zigbee2mqtt` (recria com a senha nova).
 
 ## Dispositivos na rede se conectando ao MQTT
 

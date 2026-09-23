@@ -11,7 +11,7 @@ Este processo é o mesmo em um PC Linux e no Raspberry Pi. Leva ~20 minutos.
   máquina. Assim o endereço `http://IP:8123` nunca muda.
 
 > **Estou no Windows, e agora?** Não use Docker Desktop nem WSL2: o Home
-> Assistant não consegue descobrir aparelhos na rede nem usar o USB (Zigbee).
+> Assistant não consegue descobrir aparelhos na rede.
 > Crie uma máquina virtual Ubuntu com o VirtualBox seguindo
 > **[02a-windows-virtualbox.md](02a-windows-virtualbox.md)** e depois volte
 > aqui, executando os passos abaixo **dentro da VM**.
@@ -60,7 +60,6 @@ nano .env
 
 - `MQTT_PASSWORD`: invente uma senha forte (só letras e números evita dor de cabeça).
 - `TZ`: fuso horário (padrão `America/Sao_Paulo`).
-- Deixe `COMPOSE_PROFILES=` vazio por enquanto (Zigbee é configurado depois).
 
 Salve (`Ctrl+O`, `Enter`, `Ctrl+X`) e rode de novo:
 

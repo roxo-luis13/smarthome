@@ -1,8 +1,8 @@
 # 08 — Migração para o Raspberry Pi
 
 Resumo: preparar o Raspberry → backup no PC → desligar a stack do PC → restaurar
-no Raspberry → subir. Os dispositivos, usuários, automações e o pareamento
-Zigbee continuam iguais.
+no Raspberry → subir. Aparelhos, integrações (logins nas nuvens), usuários e
+automações continuam iguais — não é preciso reconfigurar os aparelhos.
 
 ## Qual Raspberry serve (e qual não serve)
 
@@ -42,7 +42,7 @@ eletrônica. Não é necessário para a automação.
 | Fonte | Oficial (Pi 5: 27 W USB-C; Pi 4: 15 W USB-C). Fonte fraca causa travamentos. |
 | Rede | Cabo de rede até o roteador (mais estável que Wi-Fi) |
 | Gabinete | Com dissipador/ventoinha (Pi 5: *Active Cooler*) |
-| Opcional | Nobreak pequeno; adaptador Zigbee + extensor USB |
+| Opcional | Nobreak pequeno (roteador + servidor) |
 
 ## Passo 1 — Gravar o sistema
 
@@ -101,8 +101,6 @@ scp backups/smarthome-*.tar.gz SEU_USUARIO@smarthome.local:~/
 
 (Se houver mais de um backup, copie só o mais recente.)
 
-Se usa Zigbee: **desconecte o adaptador do PC** e conecte no Raspberry (com o extensor).
-
 ## Passo 5 — Restaurar no Raspberry
 
 ```bash
@@ -110,13 +108,6 @@ ssh SEU_USUARIO@smarthome.local
 cd ~/smarthome
 git pull
 ./scripts/restaurar.sh ~/smarthome-AAAAMMDD-HHMMSS.tar.gz
-```
-
-Confira o `.env`:
-
-```bash
-ls -l /dev/serial/by-id/      # se usa Zigbee: confirme o caminho do adaptador
-nano .env                     # ajuste ZIGBEE_DEVICE se mudou
 ```
 
 Suba e verifique:
@@ -144,7 +135,7 @@ As imagens são baixadas na versão ARM automaticamente (mesmo `docker-compose.y
 
 ## Voltar atrás (se algo der errado)
 
-No Raspberry: `docker compose down`. Reconecte o adaptador Zigbee no PC e, no PC:
+No Raspberry: `docker compose down`. No PC (ou na VM do Windows):
 `docker compose up -d`. Tudo volta como estava no momento do backup.
 
 ## Instalação do zero no Raspberry (sem migrar)
@@ -161,9 +152,6 @@ de add-ons):
 2. Grave o **Home Assistant OS** no Pi com o Raspberry Pi Imager
    (*Other specific-purpose OS → Home assistant and home automation*).
 3. Na tela inicial do HA OS, escolha **Restaurar de backup** e envie o arquivo.
-4. Instale os add-ons **Mosquitto broker** e **Zigbee2MQTT**, e reconfigure-os
-   (as chaves Zigbee estão em `zigbee2mqtt/data/configuration.yaml` do backup
-   deste repositório — copie `network_key`, `pan_id` e `ext_pan_id` para o
-   add-on para não precisar parear tudo de novo).
+4. (Opcional) Instale o add-on **Mosquitto broker** se usar aparelhos MQTT.
 
 Este repositório/scripts deixam de ser usados nesse caso.

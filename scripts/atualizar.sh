@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Atualiza as imagens (Home Assistant, Mosquitto, Zigbee2MQTT) com backup antes.
+# Atualiza as imagens (Home Assistant, Mosquitto) com backup antes.
 # Uso: ./scripts/atualizar.sh
 # Documentação: docs/09-manutencao.md
 set -euo pipefail

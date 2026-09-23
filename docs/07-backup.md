@@ -9,7 +9,6 @@
 - `homeassistant/` completo: usuários, integrações, dispositivos, painéis,
   histórico (banco `home-assistant_v2.db`), `secrets.yaml`, HACS/custom_components
 - `mosquitto/` (config + senhas + dados)
-- `zigbee2mqtt/data/` (**chaves da rede Zigbee** e dispositivos pareados)
 
 > O arquivo contém senhas. Guarde-o em local privado e **nunca** faça commit dele.
 
@@ -59,7 +58,6 @@ Na mesma máquina ou em outra (com o repositório clonado e Docker instalado):
 
 ```bash
 ./scripts/restaurar.sh caminho/para/smarthome-AAAAMMDD-HHMMSS.tar.gz
-# confira o .env (ex.: ZIGBEE_DEVICE)
 docker compose up -d
 ./scripts/status.sh
 ```

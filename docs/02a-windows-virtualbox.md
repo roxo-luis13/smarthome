@@ -1,7 +1,7 @@
 # 02a — Rodando no Windows (máquina virtual Ubuntu)
 
 No Windows, o Docker Desktop não deixa o Home Assistant enxergar direito a rede
-da casa (descoberta de aparelhos) nem o USB (adaptador Zigbee). A solução é
+da casa (descoberta de aparelhos). A solução é
 criar uma **máquina virtual (VM) Ubuntu** dentro do Windows com o VirtualBox.
 Para a rede da casa, a VM parece um computador separado, com IP próprio.
 
@@ -12,7 +12,7 @@ Raspberry/mini PC. A migração continua sendo "backup → restaurar".
 Windows
 └── VirtualBox
     └── VM "smarthome" (Ubuntu Server, IP próprio na rede da casa)
-        └── Docker: Home Assistant + Mosquitto (+ Zigbee2MQTT)
+        └── Docker: Home Assistant + Mosquitto
 ```
 
 ## Requisitos
@@ -27,10 +27,7 @@ Windows
 
 1. **VirtualBox** (Windows hosts): <https://www.virtualbox.org/wiki/Downloads>.
    Instale com as opções padrão (a rede pisca durante a instalação; normal).
-2. **VirtualBox Extension Pack** (mesma página): dê dois cliques para instalar.
-   Necessário só para passar o adaptador Zigbee USB para a VM. É gratuito para
-   uso pessoal.
-3. **Ubuntu Server 24.04 LTS** (arquivo `.iso`): <https://ubuntu.com/download/server>.
+2. **Ubuntu Server 24.04 LTS** (arquivo `.iso`): <https://ubuntu.com/download/server>.
 
 ## Passo 2 — Criar a VM
 
@@ -50,10 +47,9 @@ Depois, com a VM selecionada → **Configurações**:
 - **Rede → Adaptador 1 → Conectado a: Placa em modo Bridge** ("Bridged Adapter"),
   e em *Nome* escolha a placa de rede real do PC (a de cabo, se houver).
   **Este é o ajuste mais importante**: é o que dá à VM um IP próprio na rede da casa.
-  Se o PC usa Wi-Fi e a VM não pegar IP, veja "Problemas" no fim.
+  Use o PC ligado **por cabo** ao roteador; bridge por Wi-Fi às vezes falha
+  (veja "Problemas" no fim).
 - **Sistema → Placa-mãe**: marque *Relógio do hardware em UTC*.
-- **USB** (só se tiver adaptador Zigbee): *Controladora USB 3.0 (xHCI)*.
-  Configura o filtro no Passo 6.
 
 ## Passo 3 — Instalar o Ubuntu Server na VM
 
@@ -116,19 +112,9 @@ Continue em [03-home-assistant.md](03-home-assistant.md).
 **Reserve esse IP no roteador** (reserva DHCP para o endereço MAC da VM, que
 aparece em Configurações → Rede → Avançado no VirtualBox). Assim ele nunca muda.
 
-## Passo 6 — Adaptador Zigbee na VM (se tiver)
+## Passo 6 — Deixar a VM sempre ligada
 
-1. Conecte o adaptador no PC.
-2. VM → **Configurações → USB** → ícone "+" (adicionar filtro) → escolha o
-   adaptador (ex.: *ITead Sonoff Zigbee 3.0 USB Dongle Plus*). OK.
-3. Reinicie a VM. Dentro dela, `ls -l /dev/serial/by-id/` deve mostrar o adaptador.
-4. Siga [05-zigbee.md](05-zigbee.md).
-
-Com o filtro, o Windows "entrega" o adaptador para a VM sempre que ela liga.
-
-## Passo 7 — Deixar a VM sempre ligada
-
-### 7.1 Iniciar a VM sozinha, sem janela, quando o Windows liga
+### 6.1 Iniciar a VM sozinha, sem janela, quando o Windows liga
 
 Abra o **PowerShell** (normal, não precisa ser administrador) e rode:
 
@@ -152,12 +138,12 @@ entrada do Windows Hello..."*).
 
 Para remover a tarefa: `Unregister-ScheduledTask -TaskName "Iniciar VM smarthome"`.
 
-### 7.2 Não deixar o PC dormir
+### 6.2 Não deixar o PC dormir
 
 Configurações → Sistema → **Energia** → *Suspender*: **Nunca** (na tomada).
 A tela pode desligar, o PC não.
 
-### 7.3 Desligar a VM com segurança
+### 6.3 Desligar a VM com segurança
 
 Antes de desligar/reiniciar o Windows manualmente, desligue a VM direito para
 não corromper o banco de dados:
@@ -168,7 +154,7 @@ não corromper o banco de dados:
 
 (ou, via ssh na VM: `sudo poweroff`).
 
-### 7.4 Windows Update
+### 6.4 Windows Update
 
 Configurações → Windows Update → Opções avançadas → **Horário ativo**: marque
 um período amplo (ex.: 6h às 0h) para as reinicializações ocorrerem de madrugada.
@@ -190,7 +176,7 @@ scp SEU_USUARIO@192.168.0.50:~/smarthome/backups/smarthome-*.tar.gz .
   Wi-Fi não aceitam bridge. Soluções: ligar o PC no roteador por cabo e fazer
   bridge nessa placa; ou, em último caso, usar NAT com redirecionamento de
   portas (Configurações → Rede → Avançado → Redirecionamento de portas:
-  8123→8123, 1883→1883, 8080→8080, 2222→22). Nesse modo a descoberta automática
+  8123→8123, 1883→1883, 2222→22). Nesse modo a descoberta automática
   de aparelhos não funciona; acesse `http://IP-DO-WINDOWS:8123` e
   `ssh -p 2222 SEU_USUARIO@localhost`.
 - **"VT-x is not available"**: ative a virtualização na BIOS/UEFI do PC.

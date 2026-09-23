@@ -7,8 +7,10 @@ um arquivo de backup).
 | Serviço | Para que serve | Endereço |
 |---|---|---|
 | Home Assistant | Cérebro da casa: dispositivos, painéis, automações | `http://IP:8123` |
-| Mosquitto (MQTT) | "Correio" entre dispositivos (Zigbee, ESP, Tasmota...) | porta `1883` |
-| Zigbee2MQTT (opcional) | Ponte para dispositivos Zigbee via adaptador USB | `http://IP:8080` |
+| Mosquitto (MQTT) | "Correio" para aparelhos locais (Shelly, ESP, Tasmota) — opcional no uso | porta `1883` |
+
+Os aparelhos da casa são **Wi-Fi, controlados pela internet** (nuvem dos
+fabricantes, ex.: Smart Life/Tuya). Não usamos Zigbee.
 
 ## Início rápido (máquina Linux ou VM Ubuntu no Windows)
 
@@ -31,7 +33,7 @@ Tudo está em [`docs/`](docs/README.md), em ordem de leitura:
 2. [Instalação passo a passo](docs/02-instalacao.md) — **no Windows, antes veja** [Windows com VirtualBox](docs/02a-windows-virtualbox.md)
 3. [Primeiros passos no Home Assistant](docs/03-home-assistant.md)
 4. [MQTT](docs/04-mqtt.md)
-5. [Zigbee (opcional)](docs/05-zigbee.md)
+5. [Aparelhos Wi-Fi e pela internet](docs/05-aparelhos-wifi-nuvem.md)
 6. [Automações](docs/06-automacoes.md)
 7. [Backup e restauração](docs/07-backup.md)
 8. [Migração para o Raspberry Pi](docs/08-migracao-raspberry.md) (Pi 4/5 ou mini PC; o Pi 1 não roda o Home Assistant)

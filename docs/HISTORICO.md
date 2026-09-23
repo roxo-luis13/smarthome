@@ -42,8 +42,8 @@ sempre que mudar algo importante (novo serviço, novo dispositivo, migração).
 **Pendente (fazer na casa):**
 - [ ] Instalar na máquina atual ([02a-windows-virtualbox.md](02a-windows-virtualbox.md) + [02-instalacao.md](02-instalacao.md)).
 - [ ] Onboarding do HA e integrações dos aparelhos ([03-home-assistant.md](03-home-assistant.md)).
-- [ ] Integração MQTT no HA ([04-mqtt.md](04-mqtt.md)).
-- [ ] (Se tiver adaptador) Zigbee ([05-zigbee.md](05-zigbee.md)).
+- [ ] (Opcional) Integração MQTT no HA ([04-mqtt.md](04-mqtt.md)).
+- [ ] Adicionar os aparelhos Wi-Fi ([05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md)).
 - [ ] Primeiro backup + cron diário ([07-backup.md](07-backup.md)).
 - [ ] Migrar para o Raspberry Pi ([08-migracao-raspberry.md](08-migracao-raspberry.md)).
 
@@ -53,7 +53,7 @@ sempre que mudar algo importante (novo serviço, novo dispositivo, migração).
 
 **Feito:**
 - Novo guia [02a-windows-virtualbox.md](02a-windows-virtualbox.md): VM Ubuntu
-  Server no VirtualBox, rede em bridge, USB do Zigbee, início automático da VM
+  Server no VirtualBox, rede em bridge, início automático da VM
   com o Windows, PC sem suspender.
 - [08-migracao-raspberry.md](08-migracao-raspberry.md): tabela de modelos de
   Raspberry compatíveis e alternativa com mini PC usado.
@@ -70,6 +70,28 @@ sempre que mudar algo importante (novo serviço, novo dispositivo, migração).
 **Pendente:**
 - [ ] Decidir e comprar o hardware definitivo (Pi 4/5 ou mini PC).
 - [ ] Enquanto isso, rodar na VM do Windows.
+
+## 2026-09-23 — Sem Zigbee: aparelhos Wi-Fi pela internet
+
+**Situação:** a casa não vai usar Zigbee; os aparelhos serão Wi-Fi, controlados
+pela internet (nuvem dos fabricantes, ex.: Smart Life/Tuya).
+
+**Feito:**
+- Removido o Zigbee2MQTT do `docker-compose.yml`, do `.env.example`, dos scripts
+  e da documentação (pasta `zigbee2mqtt/` e `docs/05-zigbee.md` apagados).
+- Novo guia [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md): como
+  integrar Tuya/Smart Life, eWeLink, LG, Samsung, Alexa; o que acontece quando
+  a internet cai; opções de controle local para o futuro.
+- Guia do Windows sem os passos de USB/Extension Pack.
+- MQTT mantido, mas marcado como opcional.
+
+**Por quê:** menos peças para manter; sem adaptador USB, a migração para outra
+máquina fica ainda mais simples (só o backup).
+
+**Como desfazer / voltar a usar Zigbee:** a versão com Zigbee2MQTT está no
+histórico do git, no commit `065b6bb` (`docker-compose.yml`,
+`zigbee2mqtt/configuration.example.yaml` e `docs/05-zigbee.md`):
+`git show 065b6bb:docs/05-zigbee.md`.
 
 ## Modelo para próximas entradas
 

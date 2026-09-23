@@ -20,10 +20,9 @@ homeassistant/*.log.*
 homeassistant/*.fault
 homeassistant/.ha_run.lock
 
-# Dados do MQTT e Zigbee (vão no backup, não no git)
+# Dados do MQTT (vão no backup, não no git)
 mosquitto/data/
 mosquitto/log/
-zigbee2mqtt/data/
 
 # Backups locais
 backups/*

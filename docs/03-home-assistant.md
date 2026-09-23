@@ -49,24 +49,24 @@ no Brasil:
 
 | Seus aparelhos | Integração | Observação |
 |---|---|---|
-| Tomadas/lâmpadas "Smart Life" / "Tuya" / muitas marcas genéricas | **Tuya** | Faça login com a conta do app Smart Life (QR code). Depende da nuvem. |
-| Sonoff com app eWeLink | **SonoffLAN** (via HACS) | Controle local, sem nuvem. |
+| Tomadas/lâmpadas "Smart Life" / "Tuya" / muitas marcas genéricas | **Tuya** | Faça login com a conta do app Smart Life (QR code). Passo a passo em [05](05-aparelhos-wifi-nuvem.md#tuya--smart-life-mais-comum). |
+| Sonoff com app eWeLink | **SonoffLAN** (via HACS) | Login da conta eWeLink. |
 | Philips Hue | **Philips Hue** | Descoberta automática; aperte o botão da bridge. |
 | Google Home / Chromecast | **Google Cast** | Descoberta automática. |
 | Alexa (controlar a casa por voz) | **Alexa Media Player** (HACS) ou Home Assistant Cloud | |
 | Smart TV Samsung / LG | **Samsung Smart TV** / **LG webOS** | Aceite o pedido na TV. |
 | Ar-condicionado com Wi-Fi | Depende da marca (LG ThinQ, SmartThings, Midea...) | |
 | Shelly | **Shelly** | Local, sem nuvem. |
-| Sensores Zigbee | Via Zigbee2MQTT | Ver [05-zigbee.md](05-zigbee.md) |
 | ESP32/ESP8266 | **ESPHome** ou MQTT | |
 
 Dica: antes de comprar um aparelho, pesquise "`<modelo>` home assistant".
-Prefira coisas que funcionam **localmente** (Zigbee, Shelly, ESPHome): continuam
-funcionando se a internet cair e respondem mais rápido.
+Guia completo dos aparelhos Wi-Fi/pela internet (usados nesta casa):
+[05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md).
 
-## 6. Integração MQTT
+## 6. Integração MQTT (opcional)
 
-Necessária para Zigbee2MQTT e dispositivos MQTT. Passo a passo em
+Só é necessária para aparelhos locais que usam MQTT (Shelly, Tasmota, ESPHome).
+Para aparelhos pela nuvem (Smart Life etc.) não precisa. Passo a passo em
 [04-mqtt.md](04-mqtt.md#conectar-o-home-assistant-ao-mqtt).
 
 ## 7. HACS (loja da comunidade) — opcional

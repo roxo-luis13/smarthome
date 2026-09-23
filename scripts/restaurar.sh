@@ -23,5 +23,5 @@ docker run --rm -v "$PWD:/dst" -v "$BACKUP:/backup.tar.gz:ro" -w /dst alpine \
   tar xzf /backup.tar.gz
 
 echo
-echo "Restaurado. Confira o .env (ex.: ZIGBEE_DEVICE pode mudar de máquina)"
+echo "Restaurado."
 echo "e suba com: docker compose up -d"

@@ -10,7 +10,7 @@ precisar refazer tudo do zero em outro lugar, siga os arquivos **na ordem**.
 | 02a | [Windows (VirtualBox)](02a-windows-virtualbox.md) | Se a máquina for Windows: criar a VM Ubuntu antes do 02 |
 | 03 | [Home Assistant](03-home-assistant.md) | Primeira configuração, app no celular, integrações |
 | 04 | [MQTT](04-mqtt.md) | Conectar o HA ao broker e a dispositivos MQTT |
-| 05 | [Zigbee](05-zigbee.md) | Se tiver (ou comprar) um adaptador Zigbee USB |
+| 05 | [Aparelhos Wi-Fi / nuvem](05-aparelhos-wifi-nuvem.md) | Adicionar tomadas, lâmpadas, ar etc. (Smart Life/Tuya, eWeLink...) |
 | 06 | [Automações](06-automacoes.md) | Criar regras ("se X, então Y") com exemplos prontos |
 | 07 | [Backup](07-backup.md) | Antes de qualquer mudança grande, e periodicamente |
 | 08 | [Migração para Raspberry](08-migracao-raspberry.md) | Mudar do PC para o Raspberry Pi 4/5 ou mini PC (Pi 1 não serve) |
@@ -24,9 +24,9 @@ precisar refazer tudo do zero em outro lugar, siga os arquivos **na ordem**.
 2. `git clone` deste repositório.
 3. `./scripts/setup.sh` → edita `.env` → `./scripts/setup.sh` de novo.
 4. `docker compose up -d`.
-5. Abre `http://IP:8123`, cria usuário, adiciona integrações.
-6. Adiciona a integração MQTT (`localhost`, porta `1883`, usuário/senha do `.env`).
-7. (Opcional) Adaptador Zigbee: `COMPOSE_PROFILES=zigbee` no `.env`.
+5. Abre `http://IP:8123`, cria usuário, instala o app no celular.
+6. Adiciona as integrações dos aparelhos (ex.: Tuya/Smart Life) — doc 05.
+7. (Opcional) Integração MQTT (`localhost`, porta `1883`, usuário/senha do `.env`).
 8. Cria automações.
 9. `./scripts/backup.sh` e guarda o arquivo fora da máquina.
 10. Na máquina nova: passos 1–2, `./scripts/restaurar.sh backup.tar.gz`, `docker compose up -d`.

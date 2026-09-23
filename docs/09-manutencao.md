@@ -84,8 +84,10 @@ integração fácil com Alexa/Google Assistente. Ajuda a financiar o projeto.
   **privado** (nomes de dispositivos e rotinas revelam hábitos da casa).
 - Backups contêm senhas: guarde em local privado.
 - Mantenha HA, Docker e sistema atualizados.
-- Aparelhos baratos Wi-Fi "da nuvem" podem ficar numa rede de visitantes/IoT
-  separada, se o roteador permitir.
+- Contas dos fabricantes (Smart Life, eWeLink...): senha forte e verificação
+  em duas etapas quando houver — quem entra nelas controla os aparelhos.
+- Aparelhos Wi-Fi "da nuvem" podem ficar numa rede de visitantes/IoT separada,
+  se o roteador permitir (o HA continua controlando, pois fala com eles pela nuvem).
 
 ## Checklist mensal
 
