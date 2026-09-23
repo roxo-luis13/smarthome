@@ -4,6 +4,35 @@ Resumo: preparar o Raspberry → backup no PC → desligar a stack do PC → res
 no Raspberry → subir. Os dispositivos, usuários, automações e o pareamento
 Zigbee continuam iguais.
 
+## Qual Raspberry serve (e qual não serve)
+
+| Modelo | Serve? | Motivo |
+|---|---|---|
+| **Raspberry Pi 1** (A, B, B+, Zero/Zero W) | **Não** | Processador ARMv6 de 32 bits e 256–512 MB de RAM. O Home Assistant atual só roda em 64 bits e precisa de 2 GB+ de RAM; não existe imagem para ARMv6. |
+| Raspberry Pi 2 | Não | 32 bits, 1 GB de RAM |
+| Raspberry Pi 3 (B/B+) | Não recomendado | 1 GB de RAM: roda com muita lentidão e trava com frequência |
+| **Raspberry Pi 4 (4 GB+)** | Sim | |
+| **Raspberry Pi 5 (4 GB ou 8 GB)** | Sim (melhor) | |
+
+Descobrir o modelo de um Raspberry: `cat /proc/device-tree/model`.
+
+### Alternativa ao Raspberry: mini PC usado
+
+Um **mini PC x86 usado** (ex.: Lenovo ThinkCentre Tiny, Dell OptiPlex Micro,
+HP EliteDesk Mini, ou um mini PC com Intel N100) costuma custar o mesmo ou menos
+que um Pi 5 com fonte, SSD e gabinete, e é mais rápido. Já vem com SSD, gasta
+pouca energia (≈6–15 W) e usa **exatamente o mesmo processo** deste guia: instale
+o **Ubuntu Server 24.04** nele (pendrive gravado com o
+[Rufus](https://rufus.ie) ou o [balenaEtcher](https://etcher.balena.io)), habilite
+o SSH durante a instalação e siga daqui a partir do **Passo 2** (os comandos
+são os mesmos, trocando `smarthome.local` pelo IP do mini PC).
+
+### E o Raspberry Pi 1 que já tenho?
+
+Ele não roda esta stack. Usos possíveis para ele, independentes deste projeto:
+Pi-hole (bloqueador de anúncios da rede), servidor de impressão, ou projetos de
+eletrônica. Não é necessário para a automação.
+
 ## Hardware recomendado
 
 | Item | Recomendação |
@@ -59,7 +88,8 @@ exit            # sair e entrar de novo para valer o grupo docker
 
 ## Passo 4 — Backup final no PC
 
-No **PC antigo**:
+No **PC antigo** (se é a VM do Windows, rode estes comandos via ssh na VM e o
+`scp` pelo PowerShell, veja [02a-windows-virtualbox.md](02a-windows-virtualbox.md#migrando-da-vm-para-outra-máquina-depois)):
 
 ```bash
 cd ~/smarthome

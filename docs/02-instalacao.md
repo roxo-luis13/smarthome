@@ -10,13 +10,13 @@ Este processo é o mesmo em um PC Linux e no Raspberry Pi. Leva ~20 minutos.
 - Recomendado: no roteador, **reserve um IP fixo** (reserva DHCP) para essa
   máquina. Assim o endereço `http://IP:8123` nunca muda.
 
-> **Estou no Windows ou macOS, e agora?** O Home Assistant em Docker depende de
-> `network_mode: host` para descobrir dispositivos na rede, e isso funciona mal
-> no Docker Desktop (Windows/macOS). Opções, em ordem de preferência:
-> 1. Ir direto para o Raspberry Pi ([08-migracao-raspberry.md](08-migracao-raspberry.md), seção "Instalação do zero").
-> 2. Usar um PC/notebook velho com Ubuntu.
-> 3. No Windows, instalar Ubuntu no WSL2 e rodar lá — funciona para testar,
->    mas a descoberta automática de dispositivos e o USB (Zigbee) ficam limitados.
+> **Estou no Windows, e agora?** Não use Docker Desktop nem WSL2: o Home
+> Assistant não consegue descobrir aparelhos na rede nem usar o USB (Zigbee).
+> Crie uma máquina virtual Ubuntu com o VirtualBox seguindo
+> **[02a-windows-virtualbox.md](02a-windows-virtualbox.md)** e depois volte
+> aqui, executando os passos abaixo **dentro da VM**.
+>
+> (No macOS vale a mesma ideia: uma VM Ubuntu com rede em modo bridge.)
 
 ## Passo 1 — Instalar git e baixar o repositório
 

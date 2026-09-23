@@ -10,7 +10,7 @@ um arquivo de backup).
 | Mosquitto (MQTT) | "Correio" entre dispositivos (Zigbee, ESP, Tasmota...) | porta `1883` |
 | Zigbee2MQTT (opcional) | Ponte para dispositivos Zigbee via adaptador USB | `http://IP:8080` |
 
-## Início rápido (máquina Linux)
+## Início rápido (máquina Linux ou VM Ubuntu no Windows)
 
 ```bash
 git clone https://github.com/roxo-luis13/smarthome.git
@@ -28,13 +28,13 @@ Abra `http://IP-da-máquina:8123` e siga [docs/03-home-assistant.md](docs/03-hom
 Tudo está em [`docs/`](docs/README.md), em ordem de leitura:
 
 1. [Visão geral e arquitetura](docs/01-visao-geral.md)
-2. [Instalação passo a passo](docs/02-instalacao.md)
+2. [Instalação passo a passo](docs/02-instalacao.md) — **no Windows, antes veja** [Windows com VirtualBox](docs/02a-windows-virtualbox.md)
 3. [Primeiros passos no Home Assistant](docs/03-home-assistant.md)
 4. [MQTT](docs/04-mqtt.md)
 5. [Zigbee (opcional)](docs/05-zigbee.md)
 6. [Automações](docs/06-automacoes.md)
 7. [Backup e restauração](docs/07-backup.md)
-8. [Migração para o Raspberry Pi](docs/08-migracao-raspberry.md)
+8. [Migração para o Raspberry Pi](docs/08-migracao-raspberry.md) (Pi 4/5 ou mini PC; o Pi 1 não roda o Home Assistant)
 9. [Manutenção, acesso remoto e segurança](docs/09-manutencao.md)
 10. [Solução de problemas](docs/10-solucao-de-problemas.md)
 

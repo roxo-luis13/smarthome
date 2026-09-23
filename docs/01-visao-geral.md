@@ -81,9 +81,10 @@ smarthome/
 
 ## Hardware
 
-- **Agora**: qualquer PC/notebook com Linux (Ubuntu 22.04+ ou Debian 12+),
-  ligado 24h, conectado por cabo ao roteador de preferência.
-- **Depois (Raspberry)**: veja a lista em [08-migracao-raspberry.md](08-migracao-raspberry.md#hardware-recomendado).
+- **Agora**: o PC com Windows, rodando uma VM Ubuntu no VirtualBox
+  ([02a-windows-virtualbox.md](02a-windows-virtualbox.md)), ligado 24h.
+- **Depois**: Raspberry Pi 4/5 ou mini PC usado. O **Raspberry Pi 1 não serve**
+  (32 bits, 512 MB). Detalhes em [08-migracao-raspberry.md](08-migracao-raspberry.md#qual-raspberry-serve-e-qual-não-serve).
 - **Zigbee (opcional)**: adaptador USB como *Sonoff ZBDongle-E*, *Sonoff ZBDongle-P*,
   *Home Assistant Connect ZBT-1* (antigo SkyConnect). Use um cabo extensor USB
   (≈1 m) para afastá-lo do computador — reduz interferência.

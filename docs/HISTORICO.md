@@ -40,12 +40,36 @@ sempre que mudar algo importante (novo serviço, novo dispositivo, migração).
   tenta subir o Z2M (que falharia sem o dispositivo USB).
 
 **Pendente (fazer na casa):**
-- [ ] Instalar na máquina atual ([02-instalacao.md](02-instalacao.md)).
+- [ ] Instalar na máquina atual ([02a-windows-virtualbox.md](02a-windows-virtualbox.md) + [02-instalacao.md](02-instalacao.md)).
 - [ ] Onboarding do HA e integrações dos aparelhos ([03-home-assistant.md](03-home-assistant.md)).
 - [ ] Integração MQTT no HA ([04-mqtt.md](04-mqtt.md)).
 - [ ] (Se tiver adaptador) Zigbee ([05-zigbee.md](05-zigbee.md)).
 - [ ] Primeiro backup + cron diário ([07-backup.md](07-backup.md)).
 - [ ] Migrar para o Raspberry Pi ([08-migracao-raspberry.md](08-migracao-raspberry.md)).
+
+## 2026-09-23 — Windows agora, Raspberry Pi 1 depois
+
+**Situação:** a máquina atual é Windows e o destino planejado era um Raspberry Pi 1.
+
+**Feito:**
+- Novo guia [02a-windows-virtualbox.md](02a-windows-virtualbox.md): VM Ubuntu
+  Server no VirtualBox, rede em bridge, USB do Zigbee, início automático da VM
+  com o Windows, PC sem suspender.
+- [08-migracao-raspberry.md](08-migracao-raspberry.md): tabela de modelos de
+  Raspberry compatíveis e alternativa com mini PC usado.
+
+**Decisões:**
+- **VM Ubuntu no VirtualBox em vez de Docker Desktop/WSL2**: no Docker Desktop
+  o HA não descobre aparelhos na rede nem acessa USB. Em bridge, a VM é um
+  "computador" na rede da casa, igual ao destino final; o repositório e os
+  scripts continuam os mesmos.
+- **Raspberry Pi 1 não serve**: ARMv6 32 bits e 512 MB de RAM; o Home Assistant
+  exige 64 bits e 2 GB+. Destinos viáveis: Raspberry Pi 4 (4 GB+), Pi 5 ou mini
+  PC x86 usado com Ubuntu Server. A migração é a mesma nos três casos.
+
+**Pendente:**
+- [ ] Decidir e comprar o hardware definitivo (Pi 4/5 ou mini PC).
+- [ ] Enquanto isso, rodar na VM do Windows.
 
 ## Modelo para próximas entradas
 
