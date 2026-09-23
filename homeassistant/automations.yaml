@@ -1,0 +1,15 @@
+# Automações. Normalmente criadas/editadas pela interface web
+# (Configurações > Automações e cenas). O HA reescreve este arquivo.
+# Exemplos comentados de automações em docs/06-automacoes.md
+- id: "aviso_ha_iniciou"
+  alias: "Sistema - Aviso quando o Home Assistant inicia"
+  description: "Mostra uma notificação na interface sempre que o HA reinicia. Serve para confirmar que automações estão funcionando."
+  triggers:
+    - trigger: homeassistant
+      event: start
+  actions:
+    - action: persistent_notification.create
+      data:
+        title: "Home Assistant iniciado"
+        message: "O sistema reiniciou em {{ now().strftime('%d/%m/%Y %H:%M') }}."
+  mode: single

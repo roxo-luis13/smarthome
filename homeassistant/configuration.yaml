@@ -1,0 +1,29 @@
+# Configuração principal do Home Assistant
+# Explicação de cada bloco em docs/03-home-assistant.md
+#
+# Dica: a maior parte das coisas (integrações, dispositivos, áreas,
+# nome da casa, localização) é configurada pela INTERFACE WEB e fica salva
+# em .storage/ (que vai no backup). Aqui ficam só ajustes que preferimos
+# ter versionados no git.
+
+# Carrega o conjunto padrão de integrações (interface, histórico, mapa,
+# energia, descoberta automática de dispositivos, etc.)
+default_config:
+
+# Arquivos editados pela interface (Configurações > Automações e cenas)
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  # Cada arquivo em packages/ pode agrupar entidades + automações de um tema
+  packages: !include_dir_named packages
+
+# Histórico: quantos dias manter no banco de dados.
+# Valor baixo = banco menor = menos escrita no cartão SD do Raspberry.
+recorder:
+  purge_keep_days: 10
+  commit_interval: 5
+
+logger:
+  default: warning

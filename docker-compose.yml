@@ -1,0 +1,44 @@
+# Stack de automação residencial
+# Documentação completa em docs/ (comece por docs/README.md)
+#
+# Serviços:
+#   homeassistant  -> cérebro da casa (interface web na porta 8123)
+#   mosquitto      -> broker MQTT (mensageria entre dispositivos de rede local,
+#                     como Shelly/Tasmota/ESPHome; pode ficar sem uso)
+#
+# Comandos básicos (rode na pasta do repositório):
+#   docker compose up -d                     # sobe tudo
+#   docker compose ps                        # status
+#   docker compose logs -f homeassistant     # logs
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant:${HA_VERSION:-stable}
+    restart: unless-stopped
+    # Rede do host: necessária para o HA descobrir dispositivos na rede
+    # (mDNS/SSDP, Chromecast, TVs, etc.). A interface fica em http://IP:8123
+    network_mode: host
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+    volumes:
+      - ./homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+      # Permite ao HA usar o Bluetooth do computador/Raspberry
+      - /run/dbus:/run/dbus:ro
+    depends_on:
+      - mosquitto
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+    volumes:
+      # Configuração versionada no git (somente leitura para o container)
+      - ./mosquitto/config:/mosquitto/config:ro
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
