@@ -1,0 +1,10 @@
+# Package "modo da casa": interruptores virtuais usados por outras automações.
+# Aparecem na interface como entidades input_boolean.* e podem ser usados
+# em condições (ex.: "só acender a luz se NÃO estiver em modo férias").
+input_boolean:
+  modo_ferias:
+    name: "Modo férias"
+    icon: mdi:airplane
+  modo_dormir:
+    name: "Modo dormir"
+    icon: mdi:sleep

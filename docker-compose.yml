@@ -1,0 +1,66 @@
+# Stack de automação residencial
+# Documentação completa em docs/ (comece por docs/README.md)
+#
+# Serviços:
+#   homeassistant  -> cérebro da casa (interface web na porta 8123)
+#   mosquitto      -> broker MQTT (mensageria entre dispositivos)
+#   zigbee2mqtt    -> ponte Zigbee (OPCIONAL: só sobe se o .env tiver
+#                     COMPOSE_PROFILES=zigbee e um adaptador USB conectado)
+#
+# Comandos básicos (rode na pasta do repositório):
+#   docker compose up -d                     # sobe tudo que está habilitado
+#   docker compose ps                        # status
+#   docker compose logs -f homeassistant     # logs
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant:${HA_VERSION:-stable}
+    restart: unless-stopped
+    # Rede do host: necessária para o HA descobrir dispositivos na rede
+    # (mDNS/SSDP, Chromecast, TVs, etc.). A interface fica em http://IP:8123
+    network_mode: host
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+    volumes:
+      - ./homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+      # Permite ao HA usar o Bluetooth do computador/Raspberry
+      - /run/dbus:/run/dbus:ro
+    depends_on:
+      - mosquitto
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+    volumes:
+      # Configuração versionada no git (somente leitura para o container)
+      - ./mosquitto/config:/mosquitto/config:ro
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt:${Z2M_VERSION:-latest}
+    profiles: ["zigbee"]
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+      # Credenciais do MQTT vêm do arquivo .env (nunca do git)
+      - ZIGBEE2MQTT_CONFIG_MQTT_USER=${MQTT_USER}
+      - ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD=${MQTT_PASSWORD}
+    volumes:
+      - ./zigbee2mqtt/data:/app/data
+      - /run/udev:/run/udev:ro
+    devices:
+      # Caminho do adaptador Zigbee no host -> caminho fixo dentro do container
+      - ${ZIGBEE_DEVICE:-/dev/ttyUSB0}:/dev/ttyZigbee
+    depends_on:
+      - mosquitto

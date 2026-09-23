@@ -1,0 +1,30 @@
+# Segredos
+.env
+homeassistant/secrets.yaml
+mosquitto/config/passwd
+
+# Estado/runtime do Home Assistant (é recriado ou vai no backup, não no git)
+homeassistant/.storage/
+homeassistant/.cloud/
+homeassistant/.HA_VERSION
+homeassistant/deps/
+homeassistant/tts/
+homeassistant/blueprints/
+homeassistant/custom_components/
+homeassistant/www/
+homeassistant/image/
+homeassistant/*.db
+homeassistant/*.db-*
+homeassistant/*.log
+homeassistant/*.log.*
+homeassistant/*.fault
+homeassistant/.ha_run.lock
+
+# Dados do MQTT e Zigbee (vão no backup, não no git)
+mosquitto/data/
+mosquitto/log/
+zigbee2mqtt/data/
+
+# Backups locais
+backups/*
+!backups/.gitkeep
