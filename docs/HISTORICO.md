@@ -40,7 +40,7 @@ sempre que mudar algo importante (novo serviço, novo dispositivo, migração).
   tenta subir o Z2M (que falharia sem o dispositivo USB).
 
 **Pendente (fazer na casa):**
-- [ ] Instalar na máquina atual ([02a-windows-virtualbox.md](02a-windows-virtualbox.md) + [02-instalacao.md](02-instalacao.md)).
+- [x] Instalar na máquina atual ([02a-windows-virtualbox.md](02a-windows-virtualbox.md) + [02-instalacao.md](02-instalacao.md)) — feito em 2026-09-24.
 - [ ] Onboarding do HA e integrações dos aparelhos ([03-home-assistant.md](03-home-assistant.md)).
 - [ ] (Opcional) Integração MQTT no HA ([04-mqtt.md](04-mqtt.md)).
 - [ ] Adicionar os aparelhos Wi-Fi ([05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md)).
@@ -106,6 +106,24 @@ histórico do git, no commit `065b6bb` (`docker-compose.yml`,
 
 **Por quê:** o assistente do VirtualBox 7.2 inverteu a opção (antes "pular",
 agora "prosseguir com" instalação desassistida) e o ISO baixado foi o 26.04.
+
+## 2026-09-24 — Instalação concluída na VM do Windows
+
+**Feito:**
+- VM `smarthome` no VirtualBox 7.2 (Windows), Ubuntu Server 26.04.1 LTS,
+  4 GB RAM, 2 CPUs, disco dinâmico de 25 GB (LVM expandido para 23 GB com
+  `lvextend`), rede em **bridge pela placa Wi-Fi** (Dell Wireless 1707) — funcionou.
+- IP da VM: **192.168.0.130** — MAC `08:00:27:82:b7:66` (usar na reserva DHCP do roteador).
+- Usuário do Ubuntu: `roxo`. Acesso: `ssh roxo@192.168.0.130`.
+- Docker instalado pelo script oficial (suporta o Ubuntu 26.04).
+- `setup.sh` + `docker compose up -d`: Home Assistant no ar em
+  <http://192.168.0.130:8123>.
+
+**Pendente:**
+- [ ] Onboarding do Home Assistant (usuário, localização) — [03-home-assistant.md](03-home-assistant.md).
+- [ ] Reservar o IP 192.168.0.130 no roteador.
+- [ ] VM iniciar sozinha com o Windows e PC sem suspender — [02a, Passo 6](02a-windows-virtualbox.md#passo-6--deixar-a-vm-sempre-ligada).
+- [ ] Primeiro backup — [07-backup.md](07-backup.md).
 
 ## Modelo para próximas entradas
 

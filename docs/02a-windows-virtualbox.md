@@ -111,6 +111,19 @@ ssh SEU_USUARIO@192.168.0.50     # o IP anotado no Passo 3
 Responda `yes` na primeira vez e digite a senha. Agora dá para colar comandos
 com o botão direito do mouse.
 
+Dicas (aprendidas na primeira instalação):
+- **A senha não aparece enquanto você digita** (nem asteriscos). É normal:
+  digite às cegas e aperte Enter.
+- `Permission denied, please try again` = senha errada. Confira o **Caps Lock**
+  (se ele estava ligado quando a senha foi criada, ela ficou em maiúsculas).
+- Se o PowerShell "congelar" e o título da janela começar com **Selecionar**,
+  aperte `Esc` (um clique dentro da janela entra em modo de seleção).
+- Com comandos `sudo`, **cole uma linha por vez**: se colar várias, a linha
+  seguinte entra como se fosse a senha e dá "Authentication failed".
+- Avisos `File descriptor 3 ... leaked on vgs invocation` durante atualizações
+  são inofensivos. Se no fim de uma atualização o terminal parar de responder
+  (o SSH foi reiniciado), feche e conecte de novo.
+
 Descobrir o IP de novo, se precisar: faça login na janela da VM e rode `hostname -I`.
 
 ## Passo 5 — Instalar a automação
