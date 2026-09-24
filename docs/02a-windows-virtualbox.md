@@ -18,7 +18,7 @@ Windows
 ## Requisitos
 
 - Windows 10 ou 11, 64 bits, com **8 GB de RAM ou mais** (a VM usa 2–4 GB).
-- ~40 GB livres em disco.
+- ~25 GB livres em disco (na prática a VM ocupa uns 10 GB; veja o Passo 2).
 - Virtualização ligada na BIOS (Intel VT-x / AMD-V). Confira no Gerenciador de
   Tarefas → Desempenho → CPU → "Virtualização: Habilitado".
 - O PC precisa ficar **ligado 24h** enquanto for o servidor da casa.
@@ -27,20 +27,37 @@ Windows
 
 1. **VirtualBox** (Windows hosts): <https://www.virtualbox.org/wiki/Downloads>.
    Instale com as opções padrão (a rede pisca durante a instalação; normal).
-2. **Ubuntu Server 24.04 LTS** (arquivo `.iso`): <https://ubuntu.com/download/server>.
+2. **Ubuntu Server LTS** (arquivo `.iso`, ex.: `ubuntu-26.04.1-live-server-amd64.iso`):
+   <https://ubuntu.com/download/server>. Versões LTS (24.04, 26.04...) funcionam igual.
+
+Não é preciso baixar o *VirtualBox Extension Pack* (só serviria para USB).
 
 ## Passo 2 — Criar a VM
 
-No VirtualBox → **Novo**:
+No VirtualBox → **Novo** (nomes da tela do VirtualBox 7.2):
 
 | Campo | Valor |
 |---|---|
-| Nome | `smarthome` |
-| Imagem ISO | o `.iso` do Ubuntu Server baixado |
-| Marque | **Pular instalação desassistida** ("Skip Unattended Installation") |
+| VM Name | `smarthome` |
+| ISO Image | o `.iso` do Ubuntu Server baixado |
+| OS / Distribution | Linux / Ubuntu (preenchidos sozinhos) |
+| OS Version | Ubuntu (64-bit) mais recente da lista — não precisa ser a versão exata do ISO |
+| **Proceed with Unattended Installation** | **DESMARCADO** (aparece a mensagem "...o SO do convidado será instalado manualmente") |
 | Memória | 4096 MB (mínimo 2048) |
 | Processadores | 2 |
-| Disco | 40 GB (dinamicamente alocado) |
+| Disco | 25 GB, com *Pre-allocate Full Size* **desmarcado** |
+
+> **Por que desmarcar a instalação desassistida?** Nela o VirtualBox instala o
+> Ubuntu sozinho e não instala o servidor SSH, que usamos para operar a VM.
+> Em versões mais antigas do VirtualBox a opção se chama *"Pular instalação
+> desassistida"* (e aí deve ser **marcada**). Se não encontrar nenhuma das duas:
+> crie a VM **sem** escolher o ISO e depois, em *Configurações → Armazenamento*,
+> clique no drive "Vazio" → ícone de disco → *Escolher um arquivo de disco* → o ISO.
+>
+> **Sobre o disco**: "dinamicamente alocado" significa que o arquivo começa
+> pequeno e cresce conforme o uso — os 25 GB são o limite, não o espaço ocupado.
+> Uso real esperado: Ubuntu ≈5 GB + imagens Docker ≈2 GB + histórico/backups
+> ≈1–3 GB. O arquivo não encolhe sozinho, por isso não vale exagerar.
 
 Depois, com a VM selecionada → **Configurações**:
 
@@ -67,6 +84,20 @@ Depois, com a VM selecionada → **Configurações**:
 9. **SSH: marque "Install OpenSSH server"**.
 10. Snaps: não marque nada (o Docker instalamos do jeito certo depois).
 11. Ao terminar, **Reboot Now**. Se pedir, tire o ISO (Enter).
+
+Depois do reinício, faça login na janela da VM e confira se o Ubuntu usou o
+disco inteiro (às vezes o instalador deixa parte livre):
+
+```bash
+df -h /
+```
+
+Se o tamanho (`Size`) for bem menor que o disco criado (ex.: 12G num disco de
+25 GB), expanda:
+
+```bash
+sudo lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+```
 
 ## Passo 4 — Acessar a VM pelo Windows
 

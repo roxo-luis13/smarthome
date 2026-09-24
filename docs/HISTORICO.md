@@ -93,6 +93,20 @@ histórico do git, no commit `065b6bb` (`docker-compose.yml`,
 `zigbee2mqtt/configuration.example.yaml` e `docs/05-zigbee.md`):
 `git show 065b6bb:docs/05-zigbee.md`.
 
+## 2026-09-24 — Ajustes do guia do Windows durante a instalação real
+
+**Feito:**
+- [02a-windows-virtualbox.md](02a-windows-virtualbox.md): nomes da tela do
+  VirtualBox 7.2 ("Proceed with Unattended Installation" deve ficar
+  **desmarcado**), disco de 25 GB dinâmico com explicação do uso real,
+  verificação/expansão do disco após instalar o Ubuntu, ISO Ubuntu 26.04 aceito,
+  Extension Pack desnecessário.
+- `scripts/instalar-docker.sh`: se o script oficial do Docker não suportar a
+  versão do Ubuntu, instala pelos pacotes do Ubuntu (`docker.io` + `docker-compose-v2`).
+
+**Por quê:** o assistente do VirtualBox 7.2 inverteu a opção (antes "pular",
+agora "prosseguir com" instalação desassistida) e o ISO baixado foi o 26.04.
+
 ## Modelo para próximas entradas
 
 ```

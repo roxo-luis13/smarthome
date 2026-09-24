@@ -12,7 +12,13 @@ if command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; 
 fi
 
 echo ">> Instalando Docker pelo script oficial (https://get.docker.com)..."
-curl -fsSL https://get.docker.com | sudo sh
+if ! curl -fsSL https://get.docker.com | sudo sh; then
+  # Versões muito novas do Ubuntu podem ainda não ser suportadas pelo script
+  # oficial; nesse caso usamos os pacotes do próprio Ubuntu.
+  echo ">> Script oficial falhou; instalando pelos pacotes do Ubuntu..."
+  sudo apt-get update
+  sudo apt-get install -y docker.io docker-compose-v2
+fi
 
 echo ">> Permitindo que o usuário '$USER' use o Docker sem sudo..."
 sudo usermod -aG docker "$USER"
