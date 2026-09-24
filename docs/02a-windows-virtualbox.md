@@ -156,6 +156,13 @@ Continue em [03-home-assistant.md](03-home-assistant.md).
 **Reserve esse IP no roteador** (reserva DHCP para o endereço MAC da VM, que
 aparece em Configurações → Rede → Avançado no VirtualBox). Assim ele nunca muda.
 
+### 5.1 Conferir o IPv6 (importante)
+
+Alguns roteadores anunciam IPv6 que não funciona, e aí downloads e integrações
+de nuvem ficam lentos ou travam. Teste e, se o IPv6 falhar, desligue-o — ver
+[10-solucao-de-problemas.md](10-solucao-de-problemas.md#downloadsintegrações-de-nuvem-travam-ou-dão-timed-out-ipv6-quebrado).
+Nesta casa foi necessário.
+
 ## Passo 6 — Deixar a VM sempre ligada
 
 ### 6.1 Iniciar a VM sozinha, sem janela, quando o Windows liga

@@ -157,6 +157,25 @@ integração Tuya (nuvem).
 - [ ] Desativar os aparelhos duplicados na integração Tuya.
 - [ ] Reservar no roteador o IP de cada aparelho.
 
+## 2026-09-24 — IPv6 quebrado na rede de casa
+
+**Situação:** instalação do HACS falhou (`wget: can't connect to remote host:
+Operation timed out` num endereço IPv6). Teste no servidor: IPv4 respondeu em
+0,5 s; IPv6 deu timeout de 15 s. O roteador anuncia IPv6 (a VM recebe endereços
+`2804:...`), mas a saída IPv6 para a internet não funciona.
+
+**Decisão:** desligar o IPv6 na VM via `/etc/sysctl.d/99-sem-ipv6.conf`
+(passo a passo em [10-solucao-de-problemas.md](10-solucao-de-problemas.md#downloadsintegrações-de-nuvem-travam-ou-dão-timed-out-ipv6-quebrado)).
+Provável causa também da lentidão da integração Tuya (cada conexão tentava
+IPv6 primeiro e esperava o timeout).
+
+**Como desfazer:** `sudo rm /etc/sysctl.d/99-sem-ipv6.conf` e reiniciar a VM.
+
+**Pendente:**
+- [ ] Testar de novo a integração Tuya (nuvem) depois de desligar o IPv6 —
+      se ficar rápida, o Tuya Local deixa de ser necessário.
+- [ ] Instalar o HACS.
+
 ## Modelo para próximas entradas
 
 ```

@@ -43,11 +43,37 @@ Rode `./scripts/setup.sh` de novo (recria o arquivo com dono/permissão corretos
 - Aparelho novo não aparece: recarregue a integração (item acima).
 - Veja mais em [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#quando-a-internet-cai).
 
+## Downloads/integrações de nuvem travam ou dão "timed out" (IPv6 quebrado)
+
+Sintoma visto nesta casa: `wget`/`curl` mostram um endereço IPv6 (entre
+colchetes, ex.: `[2606:4700:...]`) e terminam em `Operation timed out`;
+integrações de nuvem (Tuya) ficam lentíssimas; às vezes o SSH cai.
+
+Teste (no servidor):
+
+```bash
+curl -4 -sS -o /dev/null -w "IPv4: %{http_code} em %{time_total}s\n" --max-time 15 https://get.hacs.xyz
+curl -6 -sS -o /dev/null -w "IPv6: %{http_code} em %{time_total}s\n" --max-time 15 https://get.hacs.xyz
+```
+
+Se o IPv4 responde e o IPv6 dá timeout, o roteador anuncia IPv6 mas ele não
+funciona. Desligue o IPv6 no servidor (o HA usa a rede do host, então também
+passa a usar só IPv4):
+
+```bash
+printf "net.ipv6.conf.all.disable_ipv6=1\nnet.ipv6.conf.default.disable_ipv6=1\n" | sudo tee /etc/sysctl.d/99-sem-ipv6.conf
+sudo sysctl --system
+cd ~/smarthome && docker compose restart homeassistant
+```
+
+Para desfazer: `sudo rm /etc/sysctl.d/99-sem-ipv6.conf` e reiniciar o servidor.
+
 ## Smart Life: aparelho demora > 60 s ou não obedece pelo HA (mas o app funciona)
 
 Sintoma visto nesta casa: botão muda no HA, a luz não reage; app Smart Life e
-Alexa normais; internet e relógio do servidor OK. Causa: caminho da nuvem da
-integração Tuya. Solução: usar **Tuya Local** — ver
+Alexa normais; internet e relógio do servidor OK. **Primeiro confira o IPv6**
+(seção acima) — nesta casa ele era a causa provável. Se continuar lento, use
+**Tuya Local** — ver
 [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#controle-local--tuya-local-usado-nesta-casa-para-o-smart-life).
 
 ## Dispositivo não é descoberto automaticamente
