@@ -111,6 +111,18 @@ Há duas coisas diferentes:
    senha da Amazon e o **código de verificação** (a conta Amazon precisa ter a
    verificação em duas etapas ativada; o código vem do app autenticador/SMS).
    Se ela não aparecer ou não funcionar, a alternativa é **Alexa Media Player** (HACS).
+
+   Passo a passo (Echo Dot):
+   - **Antes, na Amazon:** ative a verificação em duas etapas com **app
+     autenticador** (Google Authenticator / Microsoft Authenticator):
+     amazon.com.br → *Sua conta → Login e segurança → Verificação em duas etapas
+     → Ativar*. O código de 6 dígitos desse app é o que o HA pede.
+   - **No HA:** *+ Adicionar integração → Alexa Devices* → país (Brasil),
+     e-mail, senha e o código do app autenticador.
+   - **Testar:** *Ferramentas de desenvolvedor → Ações* → **Notificações: Enviar
+     mensagem** (`notify.send_message`) → entidade `notify.<nome_do_echo>_speak`
+     (fala) ou `..._announce` (anúncio com som) → mensagem "Olá, teste" →
+     *Executar ação*.
 2. **A Alexa controlar os aparelhos**: como os aparelhos são Smart Life, LG e
    Xiaomi, **continue usando as skills desses fabricantes na Alexa** — já
    funciona e não depende do HA. Só é preciso ligar a Alexa ao HA (Home

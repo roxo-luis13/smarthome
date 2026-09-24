@@ -139,7 +139,7 @@ fabricantes na Alexa para comando de voz.
 - [x] Smart Life (integração Tuya, nuvem) — funcionando (após corrigir o IPv6).
 - [x] LG ThinQ (token PAT) — funcionando.
 - [ ] Xiaomi Home (HACS).
-- [ ] Alexa Devices.
+- [ ] Alexa Devices (2 Echo Dot) — passo a passo detalhado no doc 05.
 
 ## 2026-09-24 — Smart Life lento pela nuvem → Tuya Local
 
