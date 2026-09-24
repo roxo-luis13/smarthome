@@ -180,14 +180,18 @@ actions:
 mode: single
 ```
 
-## Controle local — Tuya Local (usado nesta casa para o Smart Life)
+## Controle local — Tuya Local (opcional)
 
-**Por que:** nesta casa a integração **Tuya** (nuvem) importou os aparelhos, mas
-os comandos pelo HA demoravam mais de 60 s ou não chegavam — enquanto o app
-Smart Life e a Alexa funcionavam normalmente. A solução foi o **Tuya Local**:
-o HA fala **direto com o aparelho pela rede da casa** (resposta < 1 s, funciona
-até sem internet). A nuvem só é usada uma vez, no cadastro, para buscar a
-"chave local" de cada aparelho.
+**Quando usar:** se a integração **Tuya** (nuvem) estiver lenta mesmo com a
+internet boa, ou se quiser que as luzes funcionem sem internet. O **Tuya Local**
+faz o HA falar **direto com o aparelho pela rede da casa** (resposta < 1 s). A
+nuvem só é usada uma vez, no cadastro, para buscar a "chave local" de cada aparelho.
+
+> **Nesta casa não foi necessário:** a lentidão (> 60 s) era causada por **IPv6
+> quebrado** na rede. Depois de desligar o IPv6 no servidor
+> ([10-solucao-de-problemas.md](10-solucao-de-problemas.md#downloadsintegrações-de-nuvem-travam-ou-dão-timed-out-ipv6-quebrado)),
+> a integração Tuya passou a responder normalmente. Este passo a passo fica
+> como alternativa.
 
 ### Passo 1 — Instalar o HACS (uma vez)
 

@@ -72,9 +72,10 @@ Para desfazer: `sudo rm /etc/sysctl.d/99-sem-ipv6.conf` e reiniciar o servidor.
 
 Sintoma visto nesta casa: botão muda no HA, a luz não reage; app Smart Life e
 Alexa normais; internet e relógio do servidor OK. **Primeiro confira o IPv6**
-(seção acima) — nesta casa ele era a causa provável. Se continuar lento, use
+(seção acima) — nesta casa **era essa a causa**: desligar o IPv6 resolveu.
+Se mesmo assim continuar lento, use
 **Tuya Local** — ver
-[05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#controle-local--tuya-local-usado-nesta-casa-para-o-smart-life).
+[05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#controle-local--tuya-local-opcional).
 
 ## Dispositivo não é descoberto automaticamente
 

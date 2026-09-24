@@ -147,15 +147,15 @@ carga OK.
 
 **Decisão:** controlar os aparelhos Smart Life pelo **Tuya Local** (HACS),
 direto pela rede local; a nuvem só é usada no cadastro para obter as chaves.
-Passo a passo em [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#controle-local--tuya-local-usado-nesta-casa-para-o-smart-life).
+Passo a passo em [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#controle-local--tuya-local-opcional).
 
 **Como desfazer:** remover os aparelhos do Tuya Local e reativar os da
 integração Tuya (nuvem).
 
 **Pendente:**
-- [ ] Instalar HACS + Tuya Local e migrar cada aparelho.
-- [ ] Desativar os aparelhos duplicados na integração Tuya.
-- [ ] Reservar no roteador o IP de cada aparelho.
+- ~~Instalar HACS + Tuya Local e migrar cada aparelho~~ — **cancelado**: a
+  causa real era o IPv6 (ver entrada seguinte). A integração Tuya (nuvem)
+  continua em uso.
 
 ## 2026-09-24 — IPv6 quebrado na rede de casa
 
@@ -172,9 +172,9 @@ IPv6 primeiro e esperava o timeout).
 **Como desfazer:** `sudo rm /etc/sysctl.d/99-sem-ipv6.conf` e reiniciar a VM.
 
 **Pendente:**
-- [ ] Testar de novo a integração Tuya (nuvem) depois de desligar o IPv6 —
-      se ficar rápida, o Tuya Local deixa de ser necessário.
-- [ ] Instalar o HACS.
+- [x] Testar de novo a integração Tuya (nuvem) depois de desligar o IPv6 —
+      **ficou rápida**. Tuya Local não é necessário.
+- [x] Instalar o HACS (arquivos baixados; falta concluir a ativação com o GitHub, se ainda não feita).
 
 ## Modelo para próximas entradas
 
