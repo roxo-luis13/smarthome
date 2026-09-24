@@ -121,7 +121,7 @@ agora "prosseguir com" instalação desassistida) e o ISO baixado foi o 26.04.
 
 **Pendente:**
 - [ ] Onboarding do Home Assistant (usuário, localização) — [03-home-assistant.md](03-home-assistant.md).
-- [ ] Reservar o IP 192.168.0.130 no roteador.
+- [ ] Reservar o IP 192.168.0.130 no roteador (não urgente; adiado — se o IP mudar, ver `hostname -I` no console da VM).
 - [ ] VM iniciar sozinha com o Windows e PC sem suspender — [02a, Passo 6](02a-windows-virtualbox.md#passo-6--deixar-a-vm-sempre-ligada).
 - [ ] Primeiro backup — [07-backup.md](07-backup.md).
 
@@ -136,7 +136,10 @@ Alexa Devices (avisos nos Echo) e a recomendação de manter as skills dos
 fabricantes na Alexa para comando de voz.
 
 **Pendente:**
-- [ ] Integrar Smart Life → LG ThinQ → HACS + Xiaomi Home → Alexa Devices.
+- [x] Smart Life (integração Tuya, nuvem) — funcionando (após corrigir o IPv6).
+- [x] LG ThinQ (token PAT) — funcionando.
+- [ ] Xiaomi Home (HACS).
+- [ ] Alexa Devices.
 
 ## 2026-09-24 — Smart Life lento pela nuvem → Tuya Local
 
