@@ -56,6 +56,77 @@ Todas em *Configurações → Dispositivos e serviços → + Adicionar integraç
 Aparelhos novos adicionados no app aparecem sozinhos no HA (ou depois de
 *Tuya → ⋮ → Recarregar*).
 
+### LG ThinQ (ar-condicionado, geladeira, lava-roupas LG...)
+
+Integração oficial **LG ThinQ**, que usa um *token de acesso pessoal* (PAT):
+
+1. No navegador, acesse <https://connect-pat.lgthinq.com> e entre com a
+   **mesma conta do app LG ThinQ**.
+2. Clique em **ADD NEW TOKEN** (Adicionar novo token), dê um nome (ex.:
+   `home-assistant`), **marque todas as permissões** e clique em **CREATE TOKEN**.
+3. Copie o token gerado (um código longo).
+4. No HA: adicionar integração **LG ThinQ** → cole o token → em país escolha
+   **Brasil** → Enviar.
+5. Os aparelhos da conta aparecem. Coloque cada um na sua área.
+
+Se um dia trocar a senha da conta LG ou apagar o token, gere outro e
+reconfigure a integração (*LG ThinQ → ⋮ → Reconfigurar*).
+
+### Xiaomi Home (Mi Home)
+
+A integração **oficial da Xiaomi** (*Xiaomi Home*) é instalada pelo **HACS**
+(ver [03-home-assistant.md](03-home-assistant.md#7-hacs-loja-da-comunidade--opcional)).
+
+1. Instale o HACS (uma vez) e reinicie o HA.
+2. HACS → buscar **Xiaomi Home** → **Download** → reinicie o HA
+   (*Configurações → Sistema → ⏻ → Reiniciar*).
+3. **Ajuste necessário no Windows** — o login da Xiaomi sempre volta para o
+   endereço `http://homeassistant.local:8123`, que na nossa instalação não existe
+   (o servidor se chama `smarthome`). Faça o PC apontar esse nome para a VM:
+   - Abra o **Bloco de Notas como administrador** (menu Iniciar → digite
+     "Bloco de Notas" → botão direito → *Executar como administrador*).
+   - *Arquivo → Abrir* → `C:\Windows\System32\drivers\etc\hosts`
+     (mude o filtro de "Documentos de texto" para **Todos os arquivos**).
+   - Acrescente no final a linha (com o IP da VM):
+     ```
+     192.168.0.130 homeassistant.local
+     ```
+   - Salve.
+4. No HA (aberto **no navegador desse PC**): adicionar integração **Xiaomi Home**
+   → aceite os avisos → escolha a **região do servidor** igual à do app
+   (no app Xiaomi Home: *Perfil → Configurações → Região*; se os aparelhos não
+   aparecerem, tente outra região) → faça login na conta Xiaomi → escolha a
+   casa e os aparelhos.
+
+Se no celular/outro PC o login pedir `homeassistant.local`, faça a configuração
+pelo PC onde o arquivo `hosts` foi ajustado.
+
+### Alexa
+
+Há duas coisas diferentes:
+
+1. **O HA falar com os Echo** (anunciar "a porta ficou aberta", tocar avisos,
+   ver/controlar os Echo): integração **Alexa Devices** (*Amazon Alexa Devices*),
+   que já vem no HA. Adicionar integração → **Alexa Devices** → país, e-mail e
+   senha da Amazon e o **código de verificação** (a conta Amazon precisa ter a
+   verificação em duas etapas ativada; o código vem do app autenticador/SMS).
+   Se ela não aparecer ou não funcionar, a alternativa é **Alexa Media Player** (HACS).
+2. **A Alexa controlar os aparelhos**: como os aparelhos são Smart Life, LG e
+   Xiaomi, **continue usando as skills desses fabricantes na Alexa** — já
+   funciona e não depende do HA. Só é preciso ligar a Alexa ao HA (Home
+   Assistant Cloud, pago) se quiser comandar pela voz coisas que só existem no
+   HA (cenas, scripts, "modo férias").
+
+### Ordem recomendada para começar
+
+1. **Smart Life** (a mais simples, só QR code).
+2. **LG ThinQ** (token).
+3. **HACS** → **Xiaomi Home** (precisa do ajuste no `hosts`).
+4. **Alexa Devices**.
+
+Depois de cada uma: coloque os aparelhos nas áreas, confira se ligam/desligam
+pelo HA e faça um backup (`./scripts/backup.sh`).
+
 ### Sonoff (app eWeLink)
 
 A integração mais usada é a **SonoffLAN**, instalada pelo HACS
@@ -67,13 +138,11 @@ Ela usa a nuvem e, quando possível, controla o aparelho direto pela rede (mais 
 
 | Aparelhos | Integração |
 |---|---|
-| Ar-condicionado / geladeira / lava-roupas LG | **LG ThinQ** |
 | Samsung (TVs, ar-condicionado, SmartThings) | **SmartThings** |
 | Ar-condicionado Midea (app SmartHome / MSmartHome) | **Midea AC LAN** (HACS) |
 | Philips Hue | **Philips Hue** |
 | TVs LG / Samsung | **LG webOS TV** / **Samsung Smart TV** |
 | Google Home / Chromecast | **Google Cast** |
-| Echo (Alexa) — tocar avisos, controlar os Echo | **Alexa Media Player** (HACS) |
 | Câmeras | Depende da marca; muitas funcionam com **ONVIF** ou **Generic Camera** (RTSP) |
 
 ## Falar com Alexa / Google Assistente

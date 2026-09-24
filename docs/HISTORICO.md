@@ -125,6 +125,19 @@ agora "prosseguir com" instalação desassistida) e o ISO baixado foi o 26.04.
 - [ ] VM iniciar sozinha com o Windows e PC sem suspender — [02a, Passo 6](02a-windows-virtualbox.md#passo-6--deixar-a-vm-sempre-ligada).
 - [ ] Primeiro backup — [07-backup.md](07-backup.md).
 
+## 2026-09-24 — Apps/aparelhos da casa
+
+**Apps em uso:** Alexa, Smart Life, LG ThinQ, Xiaomi Home.
+
+**Feito:** [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md) ganhou o
+passo a passo de cada um: Tuya/Smart Life (QR code), LG ThinQ (token PAT),
+Xiaomi Home (HACS + ajuste do `hosts` no Windows para `homeassistant.local`),
+Alexa Devices (avisos nos Echo) e a recomendação de manter as skills dos
+fabricantes na Alexa para comando de voz.
+
+**Pendente:**
+- [ ] Integrar Smart Life → LG ThinQ → HACS + Xiaomi Home → Alexa Devices.
+
 ## Modelo para próximas entradas
 
 ```
