@@ -180,15 +180,72 @@ actions:
 mode: single
 ```
 
-## Controle local (opcional, para o futuro)
+## Controle local — Tuya Local (usado nesta casa para o Smart Life)
 
-Se quiser reduzir a dependência da internet, sem Zigbee:
+**Por que:** nesta casa a integração **Tuya** (nuvem) importou os aparelhos, mas
+os comandos pelo HA demoravam mais de 60 s ou não chegavam — enquanto o app
+Smart Life e a Alexa funcionavam normalmente. A solução foi o **Tuya Local**:
+o HA fala **direto com o aparelho pela rede da casa** (resposta < 1 s, funciona
+até sem internet). A nuvem só é usada uma vez, no cadastro, para buscar a
+"chave local" de cada aparelho.
 
-- **Tuya Local** (HACS): controla os aparelhos Tuya direto pela rede de casa.
-  Configuração mais trabalhosa (precisa da "local key" de cada aparelho).
-- Ao comprar aparelhos novos, prefira os que já são locais: **Shelly**
-  (interruptores/relés), aparelhos com **ESPHome** ou **Tasmota**. Eles usam o
-  MQTT (Mosquitto) que já está instalado — ver [04-mqtt.md](04-mqtt.md).
+### Passo 1 — Instalar o HACS (uma vez)
+
+Via `ssh roxo@192.168.0.130`:
+
+```bash
+docker exec -it homeassistant bash -c "wget -O - https://get.hacs.xyz | bash -"
+cd ~/smarthome && docker compose restart homeassistant
+```
+
+No HA (atualize a página após ~1 min): *Configurações → Dispositivos e serviços →
++ Adicionar integração → HACS* → marque as caixas de aviso → aparece um
+**código**; abra o link <https://github.com/login/device>, entre com sua conta
+do GitHub e digite o código. O HACS aparece no menu da esquerda.
+
+### Passo 2 — Instalar o Tuya Local
+
+1. Menu **HACS** → busque **Tuya Local** (autor *make-all*) → **Download** → Download.
+2. Reinicie o HA: *Configurações → Sistema → ⏻ (canto superior direito) → Reiniciar Home Assistant*.
+
+### Passo 3 — Adicionar cada aparelho
+
+*Configurações → Dispositivos e serviços → + Adicionar integração → **Tuya Local***:
+
+1. Escolha a configuração **assistida pela nuvem** (*cloud-assisted* / Smart Life).
+2. Informe o **código de usuário** do Smart Life (app → *Eu* → ⚙️ → *Conta e
+   segurança* → *Código de usuário*) e leia o **QR code** com o app Smart Life.
+3. Escolha o aparelho na lista (ex.: a lâmpada da sala).
+4. Na tela de conexão local:
+   - **Host/IP**: deixe **Auto** (ele procura o aparelho na rede). Se não achar,
+     use o IP do aparelho — veja na lista de dispositivos conectados do roteador.
+   - **Versão do protocolo**: **auto**.
+5. Escolha o **tipo de aparelho** que ele sugerir (ex.: *Smart bulb*/lâmpada) e dê um nome.
+6. Teste ligar/desligar. Repita para cada aparelho.
+
+### Passo 4 — Evitar aparelhos duplicados
+
+Cada aparelho agora existe duas vezes (Tuya nuvem e Tuya Local). Depois que o
+Tuya Local funcionar para um aparelho, **desative a versão da nuvem**:
+*Configurações → Dispositivos e serviços → Tuya → dispositivos → (aparelho) →
+⋮ → Desativar*. Use sempre as entidades do Tuya Local nas automações.
+
+(A integração Tuya pode ficar instalada; ela não atrapalha. Se todos os
+aparelhos migrarem, pode removê-la.)
+
+### Cuidados
+
+- **Reserve o IP** de cada aparelho no roteador — se o IP mudar e você tiver
+  configurado IP fixo no Tuya Local, o aparelho fica indisponível.
+- Se **reparear** um aparelho no app Smart Life (reset), a chave local muda:
+  apague-o do Tuya Local e adicione de novo (Passo 3).
+- O app Smart Life e a Alexa continuam funcionando normalmente em paralelo.
+
+### Outras opções locais (para compras futuras)
+
+Ao comprar aparelhos novos, prefira os que já são locais: **Shelly**
+(interruptores/relés), aparelhos com **ESPHome** ou **Tasmota**. Eles usam o
+MQTT (Mosquitto) que já está instalado — ver [04-mqtt.md](04-mqtt.md).
 
 ## Boas práticas
 

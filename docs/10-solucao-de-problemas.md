@@ -43,6 +43,13 @@ Rode `./scripts/setup.sh` de novo (recria o arquivo com dono/permissão corretos
 - Aparelho novo não aparece: recarregue a integração (item acima).
 - Veja mais em [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#quando-a-internet-cai).
 
+## Smart Life: aparelho demora > 60 s ou não obedece pelo HA (mas o app funciona)
+
+Sintoma visto nesta casa: botão muda no HA, a luz não reage; app Smart Life e
+Alexa normais; internet e relógio do servidor OK. Causa: caminho da nuvem da
+integração Tuya. Solução: usar **Tuya Local** — ver
+[05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#controle-local--tuya-local-usado-nesta-casa-para-o-smart-life).
+
 ## Dispositivo não é descoberto automaticamente
 
 - Confirme que o HA está com `network_mode: host` (está no `docker-compose.yml`).

@@ -138,6 +138,25 @@ fabricantes na Alexa para comando de voz.
 **Pendente:**
 - [ ] Integrar Smart Life → LG ThinQ → HACS + Xiaomi Home → Alexa Devices.
 
+## 2026-09-24 — Smart Life lento pela nuvem → Tuya Local
+
+**Situação:** integração Tuya importou os aparelhos, mas comandos pelo HA
+levavam > 60 s ou não chegavam (o botão ficava "ligado" e a luz não acendia).
+App Smart Life e Alexa normais. No servidor: ping, relógio (`timedatectl`) e
+carga OK.
+
+**Decisão:** controlar os aparelhos Smart Life pelo **Tuya Local** (HACS),
+direto pela rede local; a nuvem só é usada no cadastro para obter as chaves.
+Passo a passo em [05-aparelhos-wifi-nuvem.md](05-aparelhos-wifi-nuvem.md#controle-local--tuya-local-usado-nesta-casa-para-o-smart-life).
+
+**Como desfazer:** remover os aparelhos do Tuya Local e reativar os da
+integração Tuya (nuvem).
+
+**Pendente:**
+- [ ] Instalar HACS + Tuya Local e migrar cada aparelho.
+- [ ] Desativar os aparelhos duplicados na integração Tuya.
+- [ ] Reservar no roteador o IP de cada aparelho.
+
 ## Modelo para próximas entradas
 
 ```
