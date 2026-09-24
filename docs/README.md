@@ -16,6 +16,7 @@ precisar refazer tudo do zero em outro lugar, siga os arquivos **na ordem**.
 | 08 | [Migração para Raspberry](08-migracao-raspberry.md) | Mudar do PC para o Raspberry Pi 4/5 ou mini PC (Pi 1 não serve) |
 | 09 | [Manutenção](09-manutencao.md) | Atualizações, acesso de fora de casa, segurança |
 | 10 | [Solução de problemas](10-solucao-de-problemas.md) | Quando algo não funcionar |
+| 11 | [Automações desta casa](11-automacoes-da-casa.md) | Automações prontas para os aparelhos da casa (sala, quarto, cozinha, quintal) |
 | — | [Histórico](HISTORICO.md) | Registro do que foi feito e das decisões tomadas |
 
 ## Resumo em 10 linhas

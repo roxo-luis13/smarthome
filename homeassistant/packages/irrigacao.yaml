@@ -1,0 +1,23 @@
+# Package "irrigação": ajustes que aparecem na interface para controlar a
+# rega automática sem editar a automação (ver docs/11-automacoes-da-casa.md).
+input_datetime:
+  irrigacao_horario:
+    name: "Irrigação - horário"
+    has_date: false
+    has_time: true
+    icon: mdi:clock-outline
+
+input_number:
+  irrigacao_minutos:
+    name: "Irrigação - duração"
+    min: 1
+    max: 60
+    step: 1
+    unit_of_measurement: min
+    icon: mdi:timer-outline
+    mode: box
+
+input_boolean:
+  irrigacao_automatica:
+    name: "Irrigação automática"
+    icon: mdi:sprinkler-variant

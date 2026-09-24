@@ -39,6 +39,7 @@ Tudo está em [`docs/`](docs/README.md), em ordem de leitura:
 8. [Migração para o Raspberry Pi](docs/08-migracao-raspberry.md) (Pi 4/5 ou mini PC; o Pi 1 não roda o Home Assistant)
 9. [Manutenção, acesso remoto e segurança](docs/09-manutencao.md)
 10. [Solução de problemas](docs/10-solucao-de-problemas.md)
+11. [Automações desta casa](docs/11-automacoes-da-casa.md)
 
 Histórico do que foi feito e por quê: [docs/HISTORICO.md](docs/HISTORICO.md).
 

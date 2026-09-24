@@ -179,6 +179,24 @@ IPv6 primeiro e esperava o timeout).
       **ficou rápida**. Tuya Local não é necessário.
 - [x] Instalar o HACS (arquivos baixados; falta concluir a ativação com o GitHub, se ainda não feita).
 
+## 2026-09-24 — Automações da casa
+
+**Aparelhos:** sala (TV, ventilador, luz, luz corredor, interruptor livre,
+Echo Dot 3), quarto (luz, ventilador), cozinha (luz, Echo Dot 2), quintal
+(luz lavanderia, luz quintal, irrigação).
+
+**Feito:**
+- [11-automacoes-da-casa.md](11-automacoes-da-casa.md): 11 automações + script
+  "Boa noite" prontos para colar (validados com `check_config`), com tabela de
+  nomes de entidades a conferir.
+- `homeassistant/packages/irrigacao.yaml`: ajustes de horário, duração e
+  liga/desliga da irrigação automática (aparecem na interface).
+- Interruptor livre da sala passa a ser o "botão boa noite" (A4).
+
+**Pendente:**
+- [ ] `git pull` no servidor + reiniciar o HA para carregar o package de irrigação.
+- [ ] Conferir nomes das entidades e criar as automações desejadas.
+
 ## Modelo para próximas entradas
 
 ```
